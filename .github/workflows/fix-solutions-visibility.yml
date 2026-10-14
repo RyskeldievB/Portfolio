@@ -1,0 +1,35 @@
+name: Fix Solutions visibility
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-solutions-visibility.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch hidden Solutions section
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          marker = '/* solutions-visibility-fix */'
+          if marker not in s:
+              css = '''\n/* solutions-visibility-fix */\n#solutions{opacity:1!important;transform:none!important;padding-top:24px!important;padding-bottom:30px!important}\n#solutions .solve-grid>*{opacity:1!important;transform:none!important;animation:none!important}\n#skills{padding-bottom:8px!important}\n#experience{padding-top:26px!important}\n'''
+              s = s.replace('</style>', css + '</style>', 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Fix hidden Solutions section and spacing"
+          git push
