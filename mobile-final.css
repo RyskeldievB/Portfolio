@@ -51,8 +51,35 @@
 
   .case-grid,.case-wrap{display:block!important}
   .mock-app{display:none!important}
-  .case-card,.case-copy{padding:16px!important;max-width:100%!important}
-  .case-step{grid-template-columns:1fr!important;gap:3px!important;padding:8px 0!important}
+  #case-study .case-card,#case-study .case-copy{
+    padding:16px!important;
+    max-width:100%!important;
+    max-height:none!important;
+    height:auto!important;
+    overflow:visible!important;
+    position:relative!important;
+  }
+  #case-study .case-step{grid-template-columns:1fr!important;gap:3px!important;padding:10px 0!important}
+  #case-study .case-card:not(.mobile-open) .case-step + .case-step + .case-step,
+  #case-study .case-card:not(.mobile-open) .case-step + .case-step + .case-step ~ .case-step{
+    display:none!important;
+  }
+  #case-study .case-card:after{
+    content:'View full case ↓'!important;
+    display:block!important;
+    position:static!important;
+    margin-top:8px!important;
+    padding:10px 12px!important;
+    border:1px solid rgba(121,240,196,.22)!important;
+    border-radius:10px!important;
+    background:rgba(121,240,196,.07)!important;
+    color:var(--accent2)!important;
+    font-size:12px!important;
+    line-height:1.2!important;
+    font-weight:800!important;
+    text-align:center!important;
+  }
+  #case-study .case-card.mobile-open:after{content:'Collapse case ↑'!important}
 
   .project{display:block!important;padding:16px!important}
   .project h3{font-size:19px!important;line-height:1.25!important}
