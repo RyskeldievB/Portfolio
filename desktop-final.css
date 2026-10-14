@@ -1,0 +1,83 @@
+/* Compact desktop layout — loaded after base styles */
+@media (min-width:721px){
+  :root{--max:1180px}
+  html{scroll-padding-top:78px}
+  section[id]{scroll-margin-top:78px}
+
+  .nav{min-height:64px}
+  .navlinks{gap:18px;font-size:13px}
+  .nav-cta{padding:9px 13px}
+
+  .hero{padding:38px 0 24px;gap:20px;grid-template-columns:1.25fr .75fr}
+  .hero-main,.hero-side{padding:22px}
+  .hero h1{font-size:clamp(46px,5.1vw,64px);margin:13px 0 14px;line-height:1.01}
+  .lead{font-size:16px;line-height:1.55}
+  .typing-line{margin-top:9px;font-size:14px;min-height:22px}
+  .actions{margin-top:20px;gap:9px}
+  .btn{padding:11px 14px;font-size:13px;border-radius:12px}
+  .mini-grid{gap:10px;margin-top:20px}
+  .mini-card{padding:14px;min-height:92px}
+  .mini-card strong,.mini-card strong .counter{font-size:22px!important;line-height:1.05!important}
+  .mini-card span{font-size:12px;line-height:1.35;margin-top:5px}
+  .profile-name{font-size:24px}
+  .profile-role{font-size:14px;margin-bottom:12px}
+  .info-list{gap:6px;margin-top:10px}
+  .info-row{padding:8px 0}
+  .badge-row{margin-top:12px;gap:6px}
+  .badge{padding:5px 8px;font-size:11px}
+
+  section{padding:10px 0 14px}
+  .section-head{margin-bottom:12px}
+  .section-title{font-size:27px}
+  .section-sub{font-size:13px;line-height:1.45;margin-top:5px}
+
+  .skills-grid,.solve-grid{gap:11px}
+  .skill,.solve-card{padding:17px;min-height:132px;border-radius:16px}
+  .skill .icon{width:42px;height:42px;border-radius:13px;margin-bottom:11px;font-size:13px}
+  .skill b,.solve-card b{font-size:15px;margin-bottom:4px}
+  .skill span,.solve-card span{font-size:12px;line-height:1.4}
+  .solve-icon{font-size:20px}
+
+  #experience .timeline{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  #experience .item{padding:17px;min-height:0}
+  #experience .item:hover{transform:translateY(-3px)}
+  #experience .item-top{display:block}
+  #experience .when{font-size:11px;margin-bottom:5px}
+  #experience .item h3{font-size:18px;margin-bottom:5px}
+  #experience .item p{font-size:12.5px;line-height:1.45}
+  #experience .item ul{display:none;margin:10px 0 0;padding-left:18px;font-size:12px;line-height:1.45}
+  #experience .item.desktop-open ul{display:block}
+  .desktop-more-btn{display:inline-flex;margin-top:10px;padding:7px 10px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font:inherit;font-size:11px;font-weight:800;cursor:pointer}
+  .desktop-more-btn:hover{border-color:rgba(121,240,196,.32);background:rgba(121,240,196,.06)}
+
+  #projects .project{padding:18px;gap:12px}
+  #projects .project h3{font-size:21px;margin-bottom:6px}
+  #projects .project p{font-size:12.5px;line-height:1.45}
+  #projects .tags{margin-top:10px;gap:5px}
+  #projects .tag{font-size:10.5px;padding:5px 7px}
+
+  #case-study .section-head{margin-bottom:10px}
+  #case-study .case-grid{grid-template-columns:1.08fr .92fr;gap:12px}
+  #case-study .case-card{padding:17px}
+  #case-study .case-step{grid-template-columns:72px 1fr;gap:10px;padding:8px 0}
+  #case-study .case-step:nth-child(n+4){display:none}
+  #case-study .case-label{font-size:10px}
+  #case-study .case-step p{font-size:12px;line-height:1.4}
+  #case-study .mock-body{min-height:220px;grid-template-columns:118px 1fr}
+  #case-study .mock-top{height:36px}
+  #case-study .mock-side{padding:10px}
+  #case-study .mock-main{padding:10px}
+  #case-study .mock-row{padding:7px;margin-bottom:7px}
+
+  #contact .contact-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+  #contact .contact-card{padding:13px}
+  #contact .contact-card small{font-size:10px}
+  #contact .contact-card strong{font-size:12px;margin-top:3px}
+
+  footer{padding:16px 0 24px}
+  .footer-box{padding:12px 16px;font-size:12px}
+}
+
+@media (min-width:1100px){
+  #skills .skills-grid,#solutions .solve-grid{grid-template-columns:repeat(3,1fr)}
+}
