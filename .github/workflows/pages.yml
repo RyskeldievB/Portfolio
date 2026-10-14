@@ -73,7 +73,7 @@ jobs:
               display:flex!important;
               overflow-x:auto;
               gap:12px;
-              scroll-snap-type:x mandatory;
+              scroll-snap-type:x proximity;
               padding:2px 4px 10px 0;
               margin-right:-12px;
               scrollbar-width:none;
@@ -182,6 +182,39 @@ jobs:
               nav.className='mobile-bottom-nav';
               nav.innerHTML='<a href="#top">Home</a><a href="#skills">Skills</a><a href="#experience">Work</a><a href="#projects">Projects</a><a href="#contact">Contact</a>';
               document.body.appendChild(nav);
+            }
+
+            const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const mobile=window.matchMedia('(max-width:720px)');
+            if(!reduced){
+              document.querySelectorAll('.skills-grid,.solve-grid').forEach(track=>{
+                let dir=1;
+                let pausedUntil=0;
+                let last=0;
+                const pause=()=>{pausedUntil=performance.now()+3500};
+                track.addEventListener('touchstart',pause,{passive:true});
+                track.addEventListener('pointerdown',pause,{passive:true});
+                track.addEventListener('wheel',pause,{passive:true});
+                track.addEventListener('scroll',()=>{ if(track.dataset.auto!=='1') pause(); },{passive:true});
+
+                const step=(now)=>{
+                  if(mobile.matches && now>pausedUntil && track.scrollWidth>track.clientWidth+4){
+                    if(!last) last=now;
+                    const dt=Math.min(now-last,32);
+                    track.dataset.auto='1';
+                    track.scrollLeft += dir * 0.012 * dt;
+                    track.dataset.auto='0';
+                    const max=track.scrollWidth-track.clientWidth;
+                    if(track.scrollLeft>=max-1) dir=-1;
+                    if(track.scrollLeft<=1) dir=1;
+                    last=now;
+                  }else{
+                    last=now;
+                  }
+                  requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+              });
             }
           });
           </script>
