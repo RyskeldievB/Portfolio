@@ -1,21 +1,11 @@
-/* Cursor interaction: no background glow, only a subtle ring on desktop. */
-@media (min-width:721px){
-  body:before{
-    background:linear-gradient(180deg,#091221 0%,#07101f 58%,#081324 100%)!important;
-  }
-
-  .cursor-glow{
-    width:20px!important;
-    height:20px!important;
-    border:1px solid rgba(121,240,196,.34)!important;
-    background:transparent!important;
-    box-shadow:inset 0 0 0 1px rgba(104,169,255,.08)!important;
-    filter:none!important;
-    opacity:.55!important;
-    border-radius:50%!important;
-  }
+/* Keep the portfolio clean: no custom cursor glow or ring. */
+body:before{
+  background:linear-gradient(180deg,#091221 0%,#07101f 58%,#081324 100%)!important;
 }
 
-@media (max-width:720px){
-  .cursor-glow{display:none!important}
+.cursor-glow{
+  display:none!important;
+  opacity:0!important;
+  width:0!important;
+  height:0!important;
 }
