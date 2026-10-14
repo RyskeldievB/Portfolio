@@ -43,7 +43,7 @@ jobs:
           mobile_content = '<script src="mobile-content.js?v=2"></script>'
           desktop_js = '<script src="desktop-compact.js?v=5"></script>'
           language_js = '<script src="language-switch.js?v=1"></script>'
-          language_complete_js = '<script src="language-complete.js?v=1"></script>'
+          language_complete_js = '<script src="language-complete.js?v=2"></script>'
           resume_sync_js = '<script src="resume-link-sync.js?v=1"></script>'
 
           for old in [
@@ -77,6 +77,7 @@ jobs:
               '<link rel="stylesheet" href="language-switch.css?v=0">',
               '<script src="language-switch.js?v=0"></script>',
               '<script src="language-complete.js?v=0"></script>',
+              '<script src="language-complete.js?v=1"></script>',
               '<script src="resume-link-sync.js?v=0"></script>']:
               html = html.replace(old, '')
 
