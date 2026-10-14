@@ -43,4 +43,5 @@ function setActive(id){links.forEach(a=>a.classList.toggle('active',a.getAttribu
 function onScroll(){const doc=document.documentElement,max=doc.scrollHeight-innerHeight;line.style.width=(max?scrollY/max*100:0)+'%';const nearBottom=innerHeight+scrollY>=doc.scrollHeight-24;if(nearBottom){setActive('contact');return}let cur='';const marker=scrollY+110;for(const s of sections){if(marker>=s.offsetTop)cur=s.id}setActive(cur)}
 addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
 document.querySelectorAll('.navlinks a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=document.querySelector(a.getAttribute('href'));if(!target)return;e.preventDefault();target.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});history.replaceState(null,'',a.getAttribute('href'));setTimeout(onScroll,350)}));
-</script></body></html>
+</script><script src="portfolio-enhancements.js"></script>
+</body></html>
