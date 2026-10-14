@@ -2,26 +2,23 @@
   function buildMobileContent(){
     if(!window.matchMedia('(max-width:720px)').matches) return;
 
-    const hero = document.querySelector('.hero');
-    if(hero && !document.querySelector('.mobile-profile-card')){
-      const profile = document.createElement('div');
-      profile.className = 'mobile-profile-card';
-      profile.innerHTML = `
-        <div class="mobile-profile-top">
-          <div>
-            <div class="mobile-profile-label">Candidate profile</div>
-            <div class="mobile-profile-name">Ryskeldiev Baiel</div>
-            <div class="mobile-profile-role">IT Support Specialist · Junior System Administrator</div>
-          </div>
-          <div class="mobile-profile-badge">Open to Europe</div>
-        </div>
-        <div class="mobile-profile-meta">
-          <span>📍 Kyrgyzstan</span>
-          <a href="mailto:ryskeldievbajel014@gmail.com">✉️ Email</a>
-          <a href="https://github.com/RyskeldievB" target="_blank" rel="noopener">⌘ GitHub</a>
+    const heroMain = document.querySelector('.hero-main');
+    if(heroMain && !heroMain.querySelector('.mobile-hello')){
+      const hello = document.createElement('div');
+      hello.className = 'mobile-hello';
+      hello.innerHTML = `
+        <div class="mobile-hello-kicker">Hi, I’m</div>
+        <div class="mobile-hello-name">Ryskeldiev Baiel</div>
+        <div class="mobile-hello-role">IT Support & Automation Specialist</div>
+        <div class="mobile-hello-meta">
+          <span>🇰🇬 Kyrgyzstan</span>
+          <span>•</span>
+          <span>Open to Europe</span>
         </div>`;
-      hero.appendChild(profile);
+      heroMain.insertBefore(hello, heroMain.firstChild);
     }
+
+    document.querySelectorAll('.mobile-profile-card').forEach(el => el.remove());
 
     const caseStudy = document.getElementById('case-study');
     if(caseStudy && !caseStudy.querySelector('.mobile-case-snapshot')){
