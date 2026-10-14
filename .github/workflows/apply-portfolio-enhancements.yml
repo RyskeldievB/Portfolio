@@ -1,0 +1,47 @@
+name: Apply portfolio enhancements
+
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-portfolio-enhancements.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inject stronger portfolio sections
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          if 'what-i-solve-marker' not in s:
+              css='''\n/* what-i-solve-marker */\n.solve-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.solve-card{padding:20px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);transition:.25s}.solve-card:hover{transform:translateY(-4px);border-color:rgba(104,169,255,.35);box-shadow:0 18px 45px rgba(0,0,0,.18)}.solve-card b{display:block;margin:10px 0 6px;font-size:17px}.solve-card span{color:var(--muted);font-size:14px}.solve-icon{font-size:24px}.case-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:stretch}.case-card{padding:24px}.case-step{display:grid;grid-template-columns:90px 1fr;gap:14px;padding:13px 0;border-top:1px solid rgba(255,255,255,.08)}.case-step:first-child{border-top:0}.case-label{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--accent2);font-weight:800}.case-step p{margin:0;color:var(--muted)}.mock-app{padding:0;overflow:hidden}.mock-top{height:44px;display:flex;align-items:center;gap:8px;padding:0 14px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.03)}.mock-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.24)}.mock-body{display:grid;grid-template-columns:150px 1fr;min-height:300px}.mock-side{border-right:1px solid var(--line);padding:14px;background:rgba(255,255,255,.02)}.mock-side div{padding:9px 10px;border-radius:9px;color:var(--muted);font-size:13px}.mock-side div.active{background:rgba(104,169,255,.11);color:#fff}.mock-main{padding:18px}.mock-title{font-weight:800;margin-bottom:14px}.mock-panel{border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;background:rgba(255,255,255,.025)}.mock-row{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted)}.mock-bar{height:7px;border-radius:99px;background:rgba(255,255,255,.07);margin-top:9px;overflow:hidden}.mock-bar span{display:block;height:100%;width:72%;background:linear-gradient(90deg,var(--accent),var(--accent2))}.mock-btn{display:inline-block;margin-top:6px;padding:8px 12px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#86b9ff);color:#041120;font-weight:800;font-size:12px}@media(max-width:980px){.solve-grid{grid-template-columns:repeat(2,1fr)}.case-grid{grid-template-columns:1fr}}@media(max-width:720px){.solve-grid{grid-template-columns:1fr}.mock-body{grid-template-columns:1fr}.mock-side{display:none}.case-step{grid-template-columns:1fr}}\n'''
+              s=s.replace('</style>',css+'</style>',1)
+              solve='''\n<section id="solutions" class="reveal"><div class="section-head"><div><h2 class="section-title">What I can solve</h2><p class="section-sub">Real problems I can diagnose and handle in day-to-day IT support.</p></div></div><div class="solve-grid stagger"><div class="solve-card"><div class="solve-icon">▣</div><b>Windows issues</b><span>OS recovery, drivers, startup failures, performance problems and software installation.</span></div><div class="solve-card"><div class="solve-icon">⌁</div><b>Network problems</b><span>Routers, Wi-Fi, LAN, IP addressing, cabling and connectivity troubleshooting.</span></div><div class="solve-card"><div class="solve-icon">⚙</div><b>Hardware diagnostics</b><span>PC components, BIOS, SSD/RAM issues and practical workstation troubleshooting.</span></div><div class="solve-card"><div class="solve-icon">↗</div><b>Remote support</b><span>End-user assistance with AnyDesk, Veyon and clear step-by-step troubleshooting.</span></div><div class="solve-card"><div class="solve-icon">&gt;_</div><b>Command-line diagnostics</b><span>CMD and PowerShell for network checks, system diagnostics and routine admin tasks.</span></div><div class="solve-card"><div class="solve-icon">◆</div><b>Automation</b><span>Python and FFmpeg workflows that reduce repetitive work and speed up content production.</span></div></div></section>\n'''
+              s=s.replace('<section id="experience"',solve+'<section id="experience"',1)
+              case='''\n<section id="case-study" class="reveal"><div class="section-head"><div><h2 class="section-title">Case study — AI Content Studio</h2><p class="section-sub">A practical automation project built to turn a repetitive content workflow into one controllable system.</p></div></div><div class="case-grid"><div class="surface case-card"><div class="case-step"><div class="case-label">Problem</div><p>Producing scene-based YouTube videos required too many manual steps: script preparation, scene handling, audio generation and video assembly.</p></div><div class="case-step"><div class="case-label">Solution</div><p>I built an AI-assisted workflow that manages projects, scenes, voice text, image flow and FFmpeg video assembly in one place.</p></div><div class="case-step"><div class="case-label">Automation</div><p>The builder can assemble a video from any available matching image + audio scene pairs instead of waiting for every scene to be complete.</p></div><div class="case-step"><div class="case-label">Stack</div><p>Python · FFmpeg · HTML/CSS · Edge TTS · GitHub · AI-assisted development.</p></div><div class="case-step"><div class="case-label">Value</div><p>The project demonstrates troubleshooting, workflow design, automation thinking and the ability to turn a real problem into working software.</p></div></div><div class="surface mock-app tilt"><div class="mock-top"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div><div class="mock-body"><div class="mock-side"><div class="active">Dashboard</div><div>Projects</div><div>Scenes</div><div>Voice</div><div>Video Build</div></div><div class="mock-main"><div class="mock-title">AI Content Studio</div><div class="mock-panel"><div class="mock-row"><span>Project</span><strong>Horror Story #07</strong></div><div class="mock-bar"><span></span></div></div><div class="mock-panel"><div class="mock-row"><span>Ready scene pairs</span><strong>17 / 24</strong></div><div class="mock-row"><span>Voice</span><strong>Edge TTS</strong></div><div class="mock-row"><span>Renderer</span><strong>FFmpeg</strong></div></div><span class="mock-btn">Build available scenes</span></div></div></div></div></section>\n'''
+              marker='<section id="projects"'
+              pos=s.find(marker)
+              if pos!=-1:
+                  # add the case study immediately after the projects section by placing it before the next unnamed education section
+                  project_end=s.find('</section>',pos)
+                  if project_end!=-1:
+                      project_end += len('</section>')
+                      s=s[:project_end]+case+s[project_end:]
+              # add navigation entry
+              s=s.replace('<a href="#experience">Experience</a>','<a href="#solutions">Solutions</a><a href="#experience">Experience</a>',1)
+              p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Add solution cards and AI Content Studio case study"
+          git push
