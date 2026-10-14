@@ -36,9 +36,10 @@ jobs:
           mobile_css = '<link rel="stylesheet" href="mobile-final.css?v=3">'
           desktop_css = '<link rel="stylesheet" href="desktop-final.css?v=7">'
           studio_css = '<link rel="stylesheet" href="studio-desktop.css?v=2">'
+          project_case_css = '<link rel="stylesheet" href="project-case-desktop.css?v=1">'
           carousel = '<script src="carousel-autoplay.js?v=6"></script>'
           mobile_content = '<script src="mobile-content.js?v=2"></script>'
-          desktop_js = '<script src="desktop-compact.js?v=4"></script>'
+          desktop_js = '<script src="desktop-compact.js?v=5"></script>'
 
           for old in [
               '<link rel="stylesheet" href="mobile-final.css?v=1">',
@@ -57,7 +58,8 @@ jobs:
           for old in [
               '<script src="desktop-compact.js?v=1"></script>',
               '<script src="desktop-compact.js?v=2"></script>',
-              '<script src="desktop-compact.js?v=3"></script>']:
+              '<script src="desktop-compact.js?v=3"></script>',
+              '<script src="desktop-compact.js?v=4"></script>']:
               html = html.replace(old, desktop_js)
 
           if mobile_css not in html:
@@ -66,6 +68,8 @@ jobs:
               html = html.replace('</head>', desktop_css + '\n</head>')
           if studio_css not in html:
               html = html.replace('</head>', studio_css + '\n</head>')
+          if project_case_css not in html:
+              html = html.replace('</head>', project_case_css + '\n</head>')
           if carousel not in html:
               html = html.replace('</body>', carousel + '\n</body>')
           if mobile_content not in html:
