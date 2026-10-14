@@ -21,6 +21,71 @@ section{padding:18px 0 26px}.section-head{margin-bottom:20px}.section-title{font
 
 /* what-i-solve-marker */
 .solve-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.solve-card{padding:20px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);transition:.25s}.solve-card:hover{transform:translateY(-4px);border-color:rgba(104,169,255,.35);box-shadow:0 18px 45px rgba(0,0,0,.18)}.solve-card b{display:block;margin:10px 0 6px;font-size:17px}.solve-card span{color:var(--muted);font-size:14px}.solve-icon{font-size:24px}.case-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:stretch}.case-card{padding:24px}.case-step{display:grid;grid-template-columns:90px 1fr;gap:14px;padding:13px 0;border-top:1px solid rgba(255,255,255,.08)}.case-step:first-child{border-top:0}.case-label{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--accent2);font-weight:800}.case-step p{margin:0;color:var(--muted)}.mock-app{padding:0;overflow:hidden}.mock-top{height:44px;display:flex;align-items:center;gap:8px;padding:0 14px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.03)}.mock-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.24)}.mock-body{display:grid;grid-template-columns:150px 1fr;min-height:300px}.mock-side{border-right:1px solid var(--line);padding:14px;background:rgba(255,255,255,.02)}.mock-side div{padding:9px 10px;border-radius:9px;color:var(--muted);font-size:13px}.mock-side div.active{background:rgba(104,169,255,.11);color:#fff}.mock-main{padding:18px}.mock-title{font-weight:800;margin-bottom:14px}.mock-panel{border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;background:rgba(255,255,255,.025)}.mock-row{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted)}.mock-bar{height:7px;border-radius:99px;background:rgba(255,255,255,.07);margin-top:9px;overflow:hidden}.mock-bar span{display:block;height:100%;width:72%;background:linear-gradient(90deg,var(--accent),var(--accent2))}.mock-btn{display:inline-block;margin-top:6px;padding:8px 12px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#86b9ff);color:#041120;font-weight:800;font-size:12px}@media(max-width:980px){.solve-grid{grid-template-columns:repeat(2,1fr)}.case-grid{grid-template-columns:1fr}}@media(max-width:720px){.solve-grid{grid-template-columns:1fr}.mock-body{grid-template-columns:1fr}.mock-side{display:none}.case-step{grid-template-columns:1fr}}
+
+/* mobile-compact-v3 */
+.mini-card strong,
+.mini-card strong .counter{
+  font-size:30px!important;
+  line-height:1.05!important;
+  font-weight:900!important;
+  letter-spacing:-.7px!important;
+}
+.mini-card strong .counter{display:inline!important;color:inherit!important}
+
+@media(max-width:720px){
+  section{padding:12px 0 18px}
+  .hero{padding:44px 0 24px}
+  .hero-main,.hero-side{padding:18px}
+  .hero h1{font-size:36px}
+  .lead{font-size:16px}
+  .actions{margin-top:20px}
+  .btn{padding:11px 14px}
+
+  .mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px;margin-top:18px}
+  .mini-card{padding:14px;min-height:105px}
+  .mini-card strong,.mini-card strong .counter{font-size:24px!important;white-space:nowrap}
+  .mini-card span{font-size:12px;line-height:1.35}
+
+  .section-head{margin-bottom:14px}
+  .section-title{font-size:26px}
+  .section-sub{font-size:14px}
+
+  .skills-grid,.solve-grid{
+    display:flex!important;
+    overflow-x:auto;
+    gap:12px;
+    padding:2px 2px 12px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .skills-grid::-webkit-scrollbar,.solve-grid::-webkit-scrollbar{display:none}
+  .skills-grid>*,.solve-grid>*{flex:0 0 82%;scroll-snap-align:start}
+  .skill,.solve-card{padding:18px!important;min-height:190px}
+  .skill .icon{width:48px;height:48px;margin-bottom:14px}
+  #skills .section-sub:after,#solutions .section-sub:after{content:'  •  Swipe cards →';color:var(--accent2);font-weight:700}
+
+  #experience .item{padding:18px;cursor:pointer;position:relative}
+  .item-top{gap:6px}
+  .item h3{font-size:19px}
+  #experience .item ul{max-height:0;overflow:hidden;opacity:0;margin:0;padding-left:18px;transition:max-height .35s ease,opacity .25s ease,margin .25s ease}
+  #experience .item.mobile-open ul{max-height:520px;opacity:1;margin:12px 0 0}
+  #experience .item:after{content:'View details +';display:block;margin-top:10px;color:var(--accent2);font-size:12px;font-weight:800}
+  #experience .item.mobile-open:after{content:'Hide details −'}
+
+  #case-study .case-card{max-height:185px;overflow:hidden;cursor:pointer;position:relative;transition:max-height .4s ease}
+  #case-study .case-card.mobile-open{max-height:900px}
+  #case-study .case-card:after{content:'Tap to expand +';position:absolute;left:20px;right:20px;bottom:12px;padding-top:28px;background:linear-gradient(transparent,#0b162a 48%);color:var(--accent2);font-size:12px;font-weight:800}
+  #case-study .case-card.mobile-open:after{content:'Tap to collapse −';position:static;display:block;background:none;padding-top:10px}
+  .case-grid{gap:12px}
+  .mock-body{min-height:220px}
+
+  .contact-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px}
+  .contact-card{padding:14px}
+  .contact-card strong{font-size:13px}
+  .footer-box{font-size:12px}
+}
+
 </style>
 </head>
 <body>
@@ -51,4 +116,24 @@ function onScroll(){const doc=document.documentElement,max=doc.scrollHeight-inne
 addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
 document.querySelectorAll('.navlinks a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=document.querySelector(a.getAttribute('href'));if(!target)return;e.preventDefault();target.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});history.replaceState(null,'',a.getAttribute('href'));setTimeout(onScroll,350)}));
 </script><script src="portfolio-enhancements.js"></script>
+
+<script id="mobileCompactV3">
+(function(){
+  function setup(){
+    if(!window.matchMedia('(max-width:720px)').matches) return;
+    document.querySelectorAll('#experience .item').forEach(function(el){
+      if(el.dataset.mobileBound) return;
+      el.dataset.mobileBound='1';
+      el.addEventListener('click',function(){el.classList.toggle('mobile-open')});
+    });
+    var c=document.querySelector('#case-study .case-card');
+    if(c && !c.dataset.mobileBound){
+      c.dataset.mobileBound='1';
+      c.addEventListener('click',function(){c.classList.toggle('mobile-open')});
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',setup); else setup();
+})();
+</script>
+
 </body></html>
