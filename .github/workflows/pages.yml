@@ -23,12 +23,182 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Build compact mobile layout
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path('index.html')
+          html = p.read_text(encoding='utf-8')
+          marker = '/* MOBILE-COMPACT-V4 */'
+
+          if marker not in html:
+              css = r'''
+          <style>
+          /* MOBILE-COMPACT-V4 */
+          .mobile-bottom-nav{display:none}
+          .mobile-more-btn{display:none}
+
+          @media (max-width:720px){
+            html{scroll-padding-top:72px}
+            body{padding-bottom:72px}
+            .wrap{width:min(100% - 24px,var(--max))}
+            nav .nav{min-height:58px}
+            .nav-cta{padding:8px 12px;font-size:13px}
+
+            .hero{padding:26px 0 14px;gap:12px}
+            .hero-main{padding:20px}
+            .hero-side{display:none}
+            .hero h1{font-size:36px;line-height:1.02;margin:12px 0}
+            .lead{font-size:15px;line-height:1.55}
+            .typing-line{font-size:14px;margin-top:9px;min-height:22px}
+            .actions{margin-top:18px;gap:8px}
+            .actions .btn{padding:10px 12px;font-size:13px}
+            .actions .btn:nth-child(n+3){display:none}
+
+            .mini-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
+            .mini-card{padding:14px;min-height:96px}
+            .mini-card:nth-child(n+3){display:none}
+            .mini-card strong{font-size:22px;line-height:1.05;white-space:nowrap}
+            .mini-card span{font-size:12px;line-height:1.35;margin-top:7px}
+
+            section{padding:12px 0 16px}
+            .section-head{margin-bottom:12px}
+            .section-title{font-size:24px}
+            .section-sub{font-size:13px;line-height:1.45;margin-top:5px}
+
+            .skills-grid,.solve-grid{
+              display:flex!important;
+              overflow-x:auto;
+              gap:12px;
+              scroll-snap-type:x mandatory;
+              padding:2px 4px 10px 0;
+              margin-right:-12px;
+              scrollbar-width:none;
+              -webkit-overflow-scrolling:touch;
+            }
+            .skills-grid::-webkit-scrollbar,.solve-grid::-webkit-scrollbar{display:none}
+            .skills-grid>.skill,.solve-grid>.solve-card{
+              flex:0 0 78vw;
+              max-width:320px;
+              scroll-snap-align:start;
+              min-height:0;
+            }
+            .skill{padding:18px}
+            .skill .icon{width:44px;height:44px;margin-bottom:12px}
+            .solve-card{padding:17px}
+
+            .timeline{gap:10px}
+            .timeline .item{padding:16px}
+            .timeline .item-top{gap:8px}
+            .timeline .item h3{font-size:18px;margin-bottom:5px}
+            .timeline .item .when{font-size:11px}
+            .timeline .item ul{display:none;margin:10px 0 0;padding-left:18px}
+            .timeline .item.mobile-open ul{display:block}
+            .timeline .item p{font-size:13px;line-height:1.45}
+            .mobile-more-btn{
+              display:inline-flex;
+              margin-top:10px;
+              border:1px solid var(--line);
+              background:rgba(255,255,255,.05);
+              color:var(--text);
+              border-radius:10px;
+              padding:7px 10px;
+              font:inherit;
+              font-size:12px;
+              font-weight:700;
+            }
+
+            .case-grid{grid-template-columns:1fr!important;gap:10px}
+            .case-card{padding:17px}
+            .case-step{grid-template-columns:1fr;gap:3px;padding:9px 0}
+            .case-step:nth-child(n+3){display:none}
+            .case-card.mobile-open .case-step{display:grid}
+            .mock-app{display:none}
+
+            .project{padding:18px;gap:10px}
+            .project h3{font-size:20px}
+            .project p{font-size:13px;line-height:1.45}
+            .tags{margin-top:12px;gap:6px}
+            .tag{font-size:11px;padding:5px 8px}
+
+            .contact-grid{grid-template-columns:1fr 1fr;gap:9px}
+            .contact-card{padding:13px}
+            .contact-card small{font-size:11px}
+            .contact-card strong{font-size:12px}
+            footer{padding:18px 0 24px}
+            .footer-box{font-size:12px;padding:14px}
+
+            .mobile-bottom-nav{
+              position:fixed;
+              display:grid;
+              grid-template-columns:repeat(5,1fr);
+              left:8px;right:8px;bottom:8px;
+              z-index:100;
+              padding:6px;
+              border:1px solid rgba(255,255,255,.12);
+              border-radius:18px;
+              background:rgba(7,16,31,.92);
+              backdrop-filter:blur(18px);
+              box-shadow:0 16px 50px rgba(0,0,0,.4);
+            }
+            .mobile-bottom-nav a{
+              display:flex;align-items:center;justify-content:center;
+              min-height:42px;padding:5px 2px;border-radius:12px;
+              color:var(--muted);font-size:10px;font-weight:700;text-align:center;
+            }
+            .mobile-bottom-nav a:active,.mobile-bottom-nav a.active{background:rgba(104,169,255,.14);color:#fff}
+          }
+          </style>
+          '''
+
+              js = r'''
+          <script>
+          document.addEventListener('DOMContentLoaded',()=>{
+            const mini=[...document.querySelectorAll('.mini-card')];
+            if(mini[0]){const s=mini[0].querySelector('strong');if(s)s.textContent='50+ PCs'}
+            if(mini[1]){const s=mini[1].querySelector('strong');if(s)s.textContent='3 Years'}
+
+            document.querySelectorAll('.timeline .item').forEach(item=>{
+              if(!item.querySelector('ul') || item.querySelector('.mobile-more-btn')) return;
+              const b=document.createElement('button');
+              b.className='mobile-more-btn'; b.type='button'; b.textContent='Show details';
+              b.addEventListener('click',()=>{item.classList.toggle('mobile-open');b.textContent=item.classList.contains('mobile-open')?'Hide details':'Show details'});
+              item.appendChild(b);
+            });
+
+            document.querySelectorAll('.case-card').forEach(card=>{
+              if(card.querySelectorAll('.case-step').length<3 || card.querySelector('.mobile-more-btn')) return;
+              const b=document.createElement('button');
+              b.className='mobile-more-btn'; b.type='button'; b.textContent='View full case';
+              b.addEventListener('click',()=>{card.classList.toggle('mobile-open');b.textContent=card.classList.contains('mobile-open')?'Collapse case':'View full case'});
+              card.appendChild(b);
+            });
+
+            if(!document.querySelector('.mobile-bottom-nav')){
+              const nav=document.createElement('div');
+              nav.className='mobile-bottom-nav';
+              nav.innerHTML='<a href="#top">Home</a><a href="#skills">Skills</a><a href="#experience">Work</a><a href="#projects">Projects</a><a href="#contact">Contact</a>';
+              document.body.appendChild(nav);
+            }
+          });
+          </script>
+          '''
+              html = html.replace('</head>', css + '\n</head>')
+              html = html.replace('</body>', js + '\n</body>')
+              p.write_text(html, encoding='utf-8')
+          PY
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
