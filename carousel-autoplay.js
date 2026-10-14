@@ -1,15 +1,22 @@
 (() => {
+  const SELECTOR = '.skills-grid,.solve-grid';
+
+  function disableLegacy(track){
+    track.dataset.autoplayReady = '1';
+  }
+
   function initCarousel(track) {
     if (!track || track.dataset.loopAutoplay === '1') return;
+    disableLegacy(track);
     track.dataset.loopAutoplay = '1';
 
     const originals = Array.from(track.children);
     if (originals.length < 2) return;
 
-    // Duplicate one full set so the carousel can loop seamlessly.
     originals.forEach(el => {
       const clone = el.cloneNode(true);
       clone.setAttribute('aria-hidden', 'true');
+      clone.classList.add('carousel-clone');
       track.appendChild(clone);
     });
 
@@ -36,30 +43,30 @@
     track.addEventListener('pointercancel', resumeSoon, { passive: true });
     track.addEventListener('wheel', () => { pause(); resumeSoon(); }, { passive: true });
 
-    // Wait for layout after cloning, then use half the total width as one loop.
-    setTimeout(() => {
+    const begin = () => {
       const loopWidth = track.scrollWidth / 2;
-      if (loopWidth <= track.clientWidth) return;
+      if (loopWidth <= track.clientWidth + 2) return;
 
-      // 1px every 45ms ≈ 22px/sec: slow but clearly visible.
-      setInterval(() => {
+      window.setInterval(() => {
         if (paused || window.innerWidth > 720) return;
         track.scrollLeft += 1;
         if (track.scrollLeft >= loopWidth) {
           track.scrollLeft -= loopWidth;
         }
-      }, 45);
-    }, 250);
+      }, 40);
+    };
+
+    setTimeout(begin, 200);
   }
 
   function start() {
     if (window.innerWidth > 720) return;
-    document.querySelectorAll('.skills-grid,.solve-grid').forEach(initCarousel);
+    document.querySelectorAll(SELECTOR).forEach(initCarousel);
   }
 
+  // Run immediately so the legacy autoplay sees autoplayReady=1 and exits.
+  start();
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => setTimeout(start, 500));
-  } else {
-    setTimeout(start, 500);
+    document.addEventListener('DOMContentLoaded', () => setTimeout(start, 50));
   }
 })();
