@@ -1,0 +1,39 @@
+name: Enlarge hero stats
+
+on:
+  push:
+    paths:
+      - '.github/workflows/enlarge-hero-stats.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enlarge top statistics
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old1='<div class="mini-card"><strong><span class="counter" data-target="50">0</span>+ PCs</strong><span>Supported in a real college environment</span></div>'
+          new1='<div class="mini-card stat-card"><strong class="stat-number"><span class="counter" data-target="50">0</span>+</strong><span class="stat-label">PCs supported</span><span class="stat-note">Real college environment</span></div>'
+          old2='<div class="mini-card"><strong><span class="counter" data-target="3">0</span> Years</strong><span>Combined practical IT experience</span></div>'
+          new2='<div class="mini-card stat-card"><strong class="stat-number"><span class="counter" data-target="3">0</span></strong><span class="stat-label">Years</span><span class="stat-note">Combined practical IT experience</span></div>'
+          s=s.replace(old1,new1,1).replace(old2,new2,1)
+          css='''\n/* hero-stat-upgrade */\n.stat-card{padding:20px 20px 18px;min-height:150px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;background:linear-gradient(180deg,rgba(104,169,255,.08),rgba(255,255,255,.025));border-color:rgba(104,169,255,.16)}\n.stat-card .stat-number{font-size:52px;line-height:.9;font-weight:900;letter-spacing:-2px;background:linear-gradient(135deg,#eff5ff 15%,var(--accent) 55%,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 30px rgba(104,169,255,.10);margin:0 0 8px}\n.stat-card .stat-label{font-size:20px;font-weight:800;line-height:1.1;color:#f5f8ff;margin:0}\n.stat-card .stat-note{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.35}\n.stat-card:hover .stat-number{transform:translateY(-2px) scale(1.02)}\n.stat-card .stat-number{transition:transform .25s ease}\n@media(max-width:720px){.stat-card{min-height:130px}.stat-card .stat-number{font-size:46px}}\n'''
+          if 'hero-stat-upgrade' not in s:
+              s=s.replace('</style>',css+'</style>',1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Make hero statistics larger and clearer"
+          git push
