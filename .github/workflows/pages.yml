@@ -34,7 +34,7 @@ jobs:
           html = p.read_text(encoding='utf-8')
 
           mobile_css = '<link rel="stylesheet" href="mobile-final.css?v=3">'
-          desktop_css = '<link rel="stylesheet" href="desktop-final.css?v=4">'
+          desktop_css = '<link rel="stylesheet" href="desktop-final.css?v=5">'
           studio_css = '<link rel="stylesheet" href="studio-desktop.css?v=2">'
           carousel = '<script src="carousel-autoplay.js?v=6"></script>'
           mobile_content = '<script src="mobile-content.js?v=2"></script>'
@@ -47,7 +47,8 @@ jobs:
           for old in [
               '<link rel="stylesheet" href="desktop-final.css?v=1">',
               '<link rel="stylesheet" href="desktop-final.css?v=2">',
-              '<link rel="stylesheet" href="desktop-final.css?v=3">']:
+              '<link rel="stylesheet" href="desktop-final.css?v=3">',
+              '<link rel="stylesheet" href="desktop-final.css?v=4">']:
               html = html.replace(old, desktop_css)
           html = html.replace('<link rel="stylesheet" href="studio-desktop.css?v=1">', studio_css)
           html = html.replace('<script src="mobile-content.js?v=1"></script>', mobile_content)
