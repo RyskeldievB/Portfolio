@@ -1,0 +1,44 @@
+/* EN/RU language switch — compact on desktop and mobile. */
+.lang-switch{
+  appearance:none;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.045);
+  color:var(--text,#eff5ff);
+  min-width:48px;
+  height:38px;
+  padding:0 11px;
+  border-radius:12px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font:inherit;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.35px;
+  cursor:pointer;
+  transition:transform .2s ease,border-color .2s ease,background .2s ease;
+  white-space:nowrap;
+}
+.lang-switch:hover{
+  transform:translateY(-2px);
+  border-color:rgba(104,169,255,.42);
+  background:rgba(104,169,255,.08);
+}
+.lang-switch:focus-visible{
+  outline:2px solid var(--accent,#68a9ff);
+  outline-offset:3px;
+}
+.lang-switch .lang-globe{font-size:14px;line-height:1}
+.lang-switch .lang-label{line-height:1}
+
+@media(max-width:720px){
+  .lang-switch{
+    min-width:42px;
+    height:36px;
+    padding:0 9px;
+    border-radius:11px;
+    font-size:11px;
+  }
+  .lang-switch .lang-globe{display:none}
+}
