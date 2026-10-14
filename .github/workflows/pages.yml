@@ -37,6 +37,7 @@ jobs:
           desktop_css = '<link rel="stylesheet" href="desktop-final.css?v=8">'
           studio_css = '<link rel="stylesheet" href="studio-desktop.css?v=2">'
           project_case_css = '<link rel="stylesheet" href="project-case-desktop.css?v=1">'
+          cursor_css = '<link rel="stylesheet" href="cursor-effect.css?v=1">'
           carousel = '<script src="carousel-autoplay.js?v=6"></script>'
           mobile_content = '<script src="mobile-content.js?v=2"></script>'
           desktop_js = '<script src="desktop-compact.js?v=5"></script>'
@@ -71,6 +72,8 @@ jobs:
               html = html.replace('</head>', studio_css + '\n</head>')
           if project_case_css not in html:
               html = html.replace('</head>', project_case_css + '\n</head>')
+          if cursor_css not in html:
+              html = html.replace('</head>', cursor_css + '\n</head>')
           if carousel not in html:
               html = html.replace('</body>', carousel + '\n</body>')
           if mobile_content not in html:
