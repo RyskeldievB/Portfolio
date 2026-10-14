@@ -34,7 +34,7 @@ jobs:
           html = p.read_text(encoding='utf-8')
 
           mobile_css = '<link rel="stylesheet" href="mobile-final.css?v=3">'
-          desktop_css = '<link rel="stylesheet" href="desktop-final.css?v=1">'
+          desktop_css = '<link rel="stylesheet" href="desktop-final.css?v=2">'
           carousel = '<script src="carousel-autoplay.js?v=6"></script>'
           mobile_content = '<script src="mobile-content.js?v=2"></script>'
           desktop_js = '<script src="desktop-compact.js?v=1"></script>'
@@ -43,6 +43,9 @@ jobs:
               '<link rel="stylesheet" href="mobile-final.css?v=1">',
               '<link rel="stylesheet" href="mobile-final.css?v=2">']:
               html = html.replace(old, mobile_css)
+          for old in [
+              '<link rel="stylesheet" href="desktop-final.css?v=1">']:
+              html = html.replace(old, desktop_css)
           html = html.replace('<script src="mobile-content.js?v=1"></script>', mobile_content)
 
           if mobile_css not in html:
