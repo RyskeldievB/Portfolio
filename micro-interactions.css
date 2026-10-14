@@ -1,0 +1,42 @@
+/* Desktop micro-interactions: clean, subtle, no custom cursor. */
+.cursor-glow{display:none!important}
+
+@media (min-width:721px){
+  .btn,
+  .nav-cta,
+  #skills .skill,
+  #experience .item,
+  #projects .project,
+  #case-study .case-step,
+  #contact .contact-card{
+    will-change:transform;
+    transform-style:preserve-3d;
+    transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+  }
+
+  .btn:hover,
+  .nav-cta:hover{
+    box-shadow:0 10px 26px rgba(0,0,0,.22);
+  }
+
+  #skills .skill:hover,
+  #experience .item:hover,
+  #projects .project:hover,
+  #case-study .case-step:hover,
+  #contact .contact-card:hover{
+    border-color:rgba(104,169,255,.28)!important;
+    box-shadow:0 16px 34px rgba(0,0,0,.18);
+    background-color:rgba(255,255,255,.035);
+  }
+
+  .micro-active{
+    transition:transform .08s linear, box-shadow .18s ease, border-color .18s ease, background .18s ease!important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .btn,.nav-cta,#skills .skill,#experience .item,#projects .project,#case-study .case-step,#contact .contact-card{
+    transform:none!important;
+    transition:none!important;
+  }
+}
