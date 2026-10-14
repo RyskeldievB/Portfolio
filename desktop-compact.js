@@ -8,6 +8,24 @@
     {index:5,title:'Automation & Web',subtitle:'Small automation tools and web projects that reduce repetitive work.',tasks:['Python automation for repetitive workflows','FFmpeg-based video processing and assembly','HTML/CSS website development and deployment','AI-assisted application development and workflow design'],tools:['Python','FFmpeg','HTML/CSS','GitHub','AI-assisted dev']}
   ];
 
+  const projectDetails={
+    kicker:'FEATURED PROJECT',
+    title:'AI Content Studio — YouTube Production Automation',
+    subtitle:'An AI-assisted application built to reduce repetitive work across multi-channel YouTube production.',
+    sectionTitle:'What it does',
+    tasks:['Organizes channels, projects, templates and scene workflows','Generates scripts, prompts, images and Edge TTS voice','Matches available image + audio scene pairs automatically','Builds videos with FFmpeg without waiting for every scene'],
+    tools:['Python','FFmpeg','Edge TTS','HTML/CSS','GitHub','Automation']
+  };
+
+  const caseDetails={
+    kicker:'CASE STUDY',
+    title:'From manual scene production to one controllable workflow',
+    subtitle:'The project started from a real bottleneck: too many repeated steps for every scene and every video.',
+    sectionTitle:'How I solved it',
+    tasks:['Problem — scene preparation, voice generation and assembly required too many manual steps','Solution — one AI-assisted workflow manages projects, scenes, voice text and media preparation','Automation — the builder assembles only the ready matching image + audio pairs','Result — less repetitive work and a workflow that can continue even when some scenes are unfinished'],
+    tools:['Python','FFmpeg','Edge TTS','Workflow Design','AI-assisted Development']
+  };
+
   function removeMobileModal(){
     if(desktopMq.matches) return;
     const modal=document.getElementById('skillModal');
@@ -15,7 +33,7 @@
     document.body.classList.remove('modal-open');
   }
 
-  function ensureSkillModal(){
+  function ensureDetailModal(){
     if(!desktopMq.matches) return null;
     let modal=document.getElementById('skillModal');
     if(modal) return modal;
@@ -27,27 +45,31 @@
       <div class="skill-modal-backdrop" data-close-modal></div>
       <div class="skill-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="skillModalTitle">
         <button class="skill-modal-close" type="button" aria-label="Close" data-close-modal>×</button>
-        <div class="skill-modal-kicker">CORE SKILL</div>
+        <div class="skill-modal-kicker">DETAILS</div>
         <h3 id="skillModalTitle"></h3>
         <p class="skill-modal-sub"></p>
         <div class="skill-modal-body">
-          <div class="skill-modal-section-title">What I can handle</div>
+          <div class="skill-modal-section-title">Details</div>
           <ul class="skill-modal-list"></ul>
           <div class="skill-modal-section-title">Tools & environment</div>
           <div class="skill-modal-tags"></div>
         </div>
       </div>`;
     document.body.appendChild(modal);
-    modal.querySelectorAll('[data-close-modal]').forEach(el=>el.addEventListener('click',closeSkillModal));
+    modal.querySelectorAll('[data-close-modal]').forEach(el=>el.addEventListener('click',closeDetailModal));
     return modal;
   }
 
-  function openSkillModal(data){
+  function openDetailModal(data){
     if(!desktopMq.matches) return;
-    const modal=ensureSkillModal();
+    const modal=ensureDetailModal();
     if(!modal) return;
+    modal.querySelector('.skill-modal-kicker').textContent=data.kicker||'CORE SKILL';
     modal.querySelector('#skillModalTitle').textContent=data.title;
     modal.querySelector('.skill-modal-sub').textContent=data.subtitle;
+    const titles=modal.querySelectorAll('.skill-modal-section-title');
+    if(titles[0]) titles[0].textContent=data.sectionTitle||'What I can handle';
+    if(titles[1]) titles[1].textContent='Tools & environment';
     modal.querySelector('.skill-modal-list').innerHTML=data.tasks.map(x=>`<li>${x}</li>`).join('');
     modal.querySelector('.skill-modal-tags').innerHTML=data.tools.map(x=>`<span>${x}</span>`).join('');
     modal.classList.add('open');
@@ -55,7 +77,7 @@
     document.body.classList.add('modal-open');
   }
 
-  function closeSkillModal(){
+  function closeDetailModal(){
     const modal=document.getElementById('skillModal');
     if(!modal) return;
     modal.classList.remove('open');
@@ -77,16 +99,57 @@
       const desc=card.querySelector('span');
       if(desc){const short={0:'Windows, hardware and workstation troubleshooting.',1:'LAN, Wi-Fi, routers and connectivity diagnostics.',2:'AnyDesk, Veyon and practical end-user support.',5:'Python, FFmpeg and web automation workflows.'};desc.textContent=short[i]||desc.textContent;}
       if(!card.querySelector('.skill-open-hint')){const hint=document.createElement('div');hint.className='skill-open-hint';hint.textContent='View details  ↗';card.appendChild(hint);}
-      const activate=()=>{if(desktopMq.matches) openSkillModal(data)};
+      const payload={...data,kicker:'CORE SKILL',sectionTitle:'What I can handle'};
+      const activate=()=>{if(desktopMq.matches) openDetailModal(payload)};
       card.addEventListener('click',activate);
       card.addEventListener('keydown',e=>{if(desktopMq.matches&&(e.key==='Enter'||e.key===' ')){e.preventDefault();activate();}});
     });
   }
 
+  function setupProjectCard(){
+    const project=document.querySelector('#projects .project');
+    if(!project || project.dataset.desktopCompact==='1') return;
+    project.dataset.desktopCompact='1';
+    project.classList.add('project-compact');
+    project.innerHTML=`
+      <div class="project-compact-main">
+        <div class="project-compact-kicker">FEATURED PROJECT</div>
+        <h3>AI Content Studio — YouTube Production Automation</h3>
+        <p>AI-assisted production workflow for projects, scenes, voice and FFmpeg video assembly.</p>
+        <div class="project-compact-tags"><span>Python</span><span>FFmpeg</span><span>Edge TTS</span><span>Automation</span></div>
+      </div>
+      <div class="project-compact-side">
+        <span class="status">Active project</span>
+        <button class="project-details-btn" type="button">View project details ↗</button>
+      </div>`;
+    project.querySelector('.project-details-btn')?.addEventListener('click',()=>openDetailModal(projectDetails));
+  }
+
+  function setupCaseStudy(){
+    const card=document.querySelector('#case-study .case-card');
+    if(!card || card.dataset.desktopCompact==='1') return;
+    card.dataset.desktopCompact='1';
+    card.classList.add('case-compact-card');
+    card.innerHTML=`
+      <button class="case-mini-tile" type="button" data-case-open>
+        <span>01</span><div><b>Problem</b><small>Too many repeated manual steps per scene.</small></div>
+      </button>
+      <button class="case-mini-tile" type="button" data-case-open>
+        <span>02</span><div><b>Solution</b><small>One workflow for projects, scenes and voice.</small></div>
+      </button>
+      <button class="case-mini-tile" type="button" data-case-open>
+        <span>03</span><div><b>Automation</b><small>Build video from the scene pairs that are ready.</small></div>
+      </button>
+      <button class="case-details-btn" type="button">Open full case study ↗</button>`;
+    card.querySelectorAll('[data-case-open],.case-details-btn').forEach(el=>el.addEventListener('click',()=>openDetailModal(caseDetails)));
+  }
+
   function setupDesktop(){
     if(!desktopMq.matches){removeMobileModal();return;}
     setupSkills();
-    ensureSkillModal();
+    ensureDetailModal();
+    setupProjectCard();
+    setupCaseStudy();
 
     document.querySelectorAll('#experience .item').forEach(item=>{
       if(item.querySelector('.desktop-more-btn')) return;
@@ -104,7 +167,7 @@
     }
   }
 
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSkillModal();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDetailModal();});
   desktopMq.addEventListener?.('change',()=>{if(desktopMq.matches) setupDesktop(); else removeMobileModal();});
   window.addEventListener('resize',removeMobileModal,{passive:true});
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',setupDesktop); else setupDesktop();
