@@ -37,11 +37,10 @@ jobs:
           desktop_css = '<link rel="stylesheet" href="desktop-final.css?v=8">'
           studio_css = '<link rel="stylesheet" href="studio-desktop.css?v=2">'
           project_case_css = '<link rel="stylesheet" href="project-case-desktop.css?v=1">'
-          micro_css = '<link rel="stylesheet" href="micro-interactions.css?v=1">'
+          cursor_css = '<link rel="stylesheet" href="cursor-effect.css?v=1">'
           carousel = '<script src="carousel-autoplay.js?v=6"></script>'
           mobile_content = '<script src="mobile-content.js?v=2"></script>'
           desktop_js = '<script src="desktop-compact.js?v=5"></script>'
-          micro_js = '<script src="micro-interactions.js?v=1"></script>'
 
           for old in [
               '<link rel="stylesheet" href="mobile-final.css?v=1">',
@@ -65,9 +64,10 @@ jobs:
               '<script src="desktop-compact.js?v=4"></script>']:
               html = html.replace(old, desktop_js)
 
+          # Remove later magnetic-interaction experiment assets if they were ever injected.
           for old in [
-              '<link rel="stylesheet" href="cursor-effect.css?v=1">',
-              '<link rel="stylesheet" href="cursor-effect.css?v=2">']:
+              '<link rel="stylesheet" href="micro-interactions.css?v=1">',
+              '<script src="micro-interactions.js?v=1"></script>']:
               html = html.replace(old, '')
 
           if mobile_css not in html:
@@ -78,16 +78,14 @@ jobs:
               html = html.replace('</head>', studio_css + '\n</head>')
           if project_case_css not in html:
               html = html.replace('</head>', project_case_css + '\n</head>')
-          if micro_css not in html:
-              html = html.replace('</head>', micro_css + '\n</head>')
+          if cursor_css not in html:
+              html = html.replace('</head>', cursor_css + '\n</head>')
           if carousel not in html:
               html = html.replace('</body>', carousel + '\n</body>')
           if mobile_content not in html:
               html = html.replace('</body>', mobile_content + '\n</body>')
           if desktop_js not in html:
               html = html.replace('</body>', desktop_js + '\n</body>')
-          if micro_js not in html:
-              html = html.replace('</body>', micro_js + '\n</body>')
 
           p.write_text(html, encoding='utf-8')
           PY
