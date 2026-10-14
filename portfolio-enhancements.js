@@ -27,4 +27,34 @@
   document.querySelectorAll('#solutions .stagger,#case-study').forEach(el=>{
     if(window.IntersectionObserver){const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target)}}),{threshold:.1});o.observe(el)}else el.classList.add('in');
   });
+
+  const setupAutoplay=()=>{
+    if(!window.matchMedia('(max-width:720px)').matches) return;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.querySelectorAll('.skills-grid,.solve-grid').forEach(track=>{
+      if(track.dataset.autoplayReady==='1') return;
+      track.dataset.autoplayReady='1';
+      let dir=1;
+      let pauseUntil=0;
+      let last=performance.now();
+      const pause=()=>{pauseUntil=performance.now()+3500};
+      track.addEventListener('touchstart',pause,{passive:true});
+      track.addEventListener('pointerdown',pause,{passive:true});
+      track.addEventListener('wheel',pause,{passive:true});
+      const tick=(now)=>{
+        const dt=Math.min(now-last,40);
+        last=now;
+        if(now>pauseUntil && track.scrollWidth>track.clientWidth+4){
+          track.scrollLeft += dir * 0.018 * dt;
+          const max=track.scrollWidth-track.clientWidth;
+          if(track.scrollLeft>=max-1){track.scrollLeft=max;dir=-1}
+          else if(track.scrollLeft<=1){track.scrollLeft=0;dir=1}
+        }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',()=>setTimeout(setupAutoplay,150));
+  else setTimeout(setupAutoplay,150);
 })();
