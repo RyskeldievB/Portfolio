@@ -7,6 +7,14 @@
   html{scroll-padding-top:76px}
   section[id]{scroll-margin-top:76px}
 
+  /* Subtle cursor glow: keep the effect without washing out content. */
+  .cursor-glow{
+    width:180px!important;
+    height:180px!important;
+    background:radial-gradient(circle,rgba(104,169,255,.045),transparent 72%)!important;
+    filter:blur(8px)!important;
+  }
+
   .nav{min-height:64px}
   .navlinks{gap:18px;font-size:13px}
   .navlinks a[href="#solutions"]{display:none!important}
