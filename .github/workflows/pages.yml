@@ -32,12 +32,15 @@ jobs:
           from pathlib import Path
           p = Path('index.html')
           html = p.read_text(encoding='utf-8')
-          css = '<link rel="stylesheet" href="mobile-final.css?v=1">'
-          js = '<script src="carousel-autoplay.js?v=6"></script>'
+          css = '<link rel="stylesheet" href="mobile-final.css?v=2">'
+          carousel = '<script src="carousel-autoplay.js?v=6"></script>'
+          mobile_content = '<script src="mobile-content.js?v=1"></script>'
           if css not in html:
               html = html.replace('</head>', css + '\n</head>')
-          if js not in html:
-              html = html.replace('</body>', js + '\n</body>')
+          if carousel not in html:
+              html = html.replace('</body>', carousel + '\n</body>')
+          if mobile_content not in html:
+              html = html.replace('</body>', mobile_content + '\n</body>')
           p.write_text(html, encoding='utf-8')
           PY
 
