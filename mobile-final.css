@@ -13,6 +13,14 @@
   .hero{display:block!important;padding:18px 0 10px!important;margin:0!important}
   .hero-main{padding:18px!important;width:100%!important;min-width:0!important}
   .hero-side{display:none!important}
+
+  .mobile-hello{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .mobile-hello-kicker{font-size:12px;font-weight:800;letter-spacing:.7px;color:var(--accent2);margin-bottom:2px}
+  .mobile-hello-name{font-size:30px;line-height:1.04;font-weight:950;letter-spacing:-.8px;color:#fff}
+  .mobile-hello-role{font-size:14px;font-weight:700;color:#dce6ff;margin-top:7px;line-height:1.35}
+  .mobile-hello-meta{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-top:9px;font-size:11px;color:var(--muted)}
+  .mobile-hello-meta span:last-child{color:var(--accent2);font-weight:800}
+
   .hero h1{font-size:34px!important;line-height:1.04!important;margin:10px 0 12px!important;overflow-wrap:anywhere!important}
   .lead{font-size:14px!important;line-height:1.5!important}
   .typing-line{font-size:13px!important;line-height:1.4!important;min-height:20px!important;margin-top:8px!important}
@@ -27,14 +35,7 @@
   .mini-card strong,.mini-card strong .counter{display:block!important;font-size:21px!important;line-height:1.05!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;letter-spacing:-.4px!important}
   .mini-card span{font-size:11px!important;line-height:1.35!important;margin-top:8px!important}
 
-  .mobile-profile-card{margin:12px 0 4px;padding:16px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025));box-shadow:0 16px 38px rgba(0,0,0,.18)}
-  .mobile-profile-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-  .mobile-profile-label{font-size:10px;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);margin-bottom:4px}
-  .mobile-profile-name{font-size:21px;font-weight:900;line-height:1.1}
-  .mobile-profile-role{font-size:12px;line-height:1.4;color:var(--muted);margin-top:6px}
-  .mobile-profile-badge{flex:0 0 auto;font-size:10px;font-weight:800;color:var(--accent2);border:1px solid rgba(121,240,196,.28);background:rgba(121,240,196,.08);padding:7px 9px;border-radius:999px;white-space:nowrap}
-  .mobile-profile-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
-  .mobile-profile-meta span,.mobile-profile-meta a{font-size:11px;color:#dce6ff;border:1px solid var(--line);background:rgba(255,255,255,.035);padding:6px 8px;border-radius:999px}
+  .mobile-profile-card{display:none!important}
 
   section{padding:10px 0 14px!important;max-width:100%!important;overflow:hidden!important}
   .section-head{margin-bottom:11px!important}
