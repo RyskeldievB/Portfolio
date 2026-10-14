@@ -57,20 +57,21 @@
   #projects .tag{font-size:10.5px;padding:5px 7px}
 
   #case-study{padding-top:8px;padding-bottom:10px}
-  #case-study .section-head{margin-bottom:8px}
-  #case-study .case-grid{grid-template-columns:1fr 1fr;gap:12px;align-items:start!important}
-  #case-study .case-card{padding:12px 14px!important;height:auto!important;min-height:0!important;align-self:start!important}
-  #case-study .case-step{grid-template-columns:72px 1fr;gap:10px;padding:9px 0;border-top:1px solid rgba(255,255,255,.07)}
-  #case-study .case-step:first-child{border-top:0}
-  #case-study .case-step:nth-child(n+4){display:none}
-  #case-study .case-label{font-size:10px}
-  #case-study .case-step p{font-size:11.5px;line-height:1.35}
-  #case-study .mock-app{height:auto!important;min-height:0!important;align-self:start!important}
-  #case-study .mock-top{height:32px}
-  #case-study .mock-body{min-height:178px!important;height:178px!important;grid-template-columns:108px 1fr}
-  #case-study .mock-side{padding:8px}
-  #case-study .mock-main{padding:9px}
-  #case-study .mock-row{padding:6px;margin-bottom:6px}
+  #case-study .section-head{margin-bottom:10px}
+  #case-study .case-grid{grid-template-columns:.95fr 1.05fr;gap:14px;align-items:stretch!important}
+  #case-study .case-card{display:grid!important;gap:9px!important;padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;overflow:visible!important;height:auto!important;min-height:0!important}
+  #case-study .case-card:after{display:none!important}
+  #case-study .case-step{grid-template-columns:74px 1fr;gap:12px;padding:12px 14px!important;border:1px solid var(--line)!important;border-radius:14px!important;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.025))!important;min-height:68px;align-items:center}
+  #case-study .case-step:first-child{border-top:1px solid var(--line)!important}
+  #case-study .case-step:nth-child(n+4){display:none!important}
+  #case-study .case-label{font-size:10px;letter-spacing:.9px}
+  #case-study .case-step p{font-size:11.5px;line-height:1.4}
+  #case-study .mock-app{height:100%!important;min-height:0!important;align-self:stretch!important;border-radius:18px!important}
+  #case-study .mock-top{height:34px}
+  #case-study .mock-body{min-height:222px!important;height:222px!important;grid-template-columns:112px 1fr}
+  #case-study .mock-side{padding:9px}
+  #case-study .mock-main{padding:10px}
+  #case-study .mock-row{padding:7px;margin-bottom:7px}
   #case-study .mock-progress{margin-top:8px}
 
   #contact .contact-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
