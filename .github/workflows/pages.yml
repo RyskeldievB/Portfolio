@@ -43,6 +43,7 @@ jobs:
           mobile_content = '<script src="mobile-content.js?v=2"></script>'
           desktop_js = '<script src="desktop-compact.js?v=5"></script>'
           language_js = '<script src="language-switch.js?v=1"></script>'
+          language_complete_js = '<script src="language-complete.js?v=1"></script>'
           resume_sync_js = '<script src="resume-link-sync.js?v=1"></script>'
 
           for old in [
@@ -67,16 +68,15 @@ jobs:
               '<script src="desktop-compact.js?v=4"></script>']:
               html = html.replace(old, desktop_js)
 
-          # Remove later magnetic-interaction experiment assets if they were ever injected.
           for old in [
               '<link rel="stylesheet" href="micro-interactions.css?v=1">',
               '<script src="micro-interactions.js?v=1"></script>']:
               html = html.replace(old, '')
 
-          # Remove older language asset versions before injecting the current ones.
           for old in [
               '<link rel="stylesheet" href="language-switch.css?v=0">',
               '<script src="language-switch.js?v=0"></script>',
+              '<script src="language-complete.js?v=0"></script>',
               '<script src="resume-link-sync.js?v=0"></script>']:
               html = html.replace(old, '')
 
@@ -100,6 +100,8 @@ jobs:
               html = html.replace('</body>', desktop_js + '\n</body>')
           if language_js not in html:
               html = html.replace('</body>', language_js + '\n</body>')
+          if language_complete_js not in html:
+              html = html.replace('</body>', language_complete_js + '\n</body>')
           if resume_sync_js not in html:
               html = html.replace('</body>', resume_sync_js + '\n</body>')
 
