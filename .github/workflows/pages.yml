@@ -24,7 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare mobile portfolio
+      - name: Prepare portfolio
         shell: bash
         run: |
           python3 scripts/apply_mobile_compact.py
@@ -32,18 +32,30 @@ jobs:
           from pathlib import Path
           p = Path('index.html')
           html = p.read_text(encoding='utf-8')
-          css = '<link rel="stylesheet" href="mobile-final.css?v=3">'
+
+          mobile_css = '<link rel="stylesheet" href="mobile-final.css?v=3">'
+          desktop_css = '<link rel="stylesheet" href="desktop-final.css?v=1">'
           carousel = '<script src="carousel-autoplay.js?v=6"></script>'
           mobile_content = '<script src="mobile-content.js?v=2"></script>'
-          html = html.replace('<link rel="stylesheet" href="mobile-final.css?v=1">', css)
-          html = html.replace('<link rel="stylesheet" href="mobile-final.css?v=2">', css)
+          desktop_js = '<script src="desktop-compact.js?v=1"></script>'
+
+          for old in [
+              '<link rel="stylesheet" href="mobile-final.css?v=1">',
+              '<link rel="stylesheet" href="mobile-final.css?v=2">']:
+              html = html.replace(old, mobile_css)
           html = html.replace('<script src="mobile-content.js?v=1"></script>', mobile_content)
-          if css not in html:
-              html = html.replace('</head>', css + '\n</head>')
+
+          if mobile_css not in html:
+              html = html.replace('</head>', mobile_css + '\n</head>')
+          if desktop_css not in html:
+              html = html.replace('</head>', desktop_css + '\n</head>')
           if carousel not in html:
               html = html.replace('</body>', carousel + '\n</body>')
           if mobile_content not in html:
               html = html.replace('</body>', mobile_content + '\n</body>')
+          if desktop_js not in html:
+              html = html.replace('</body>', desktop_js + '\n</body>')
+
           p.write_text(html, encoding='utf-8')
           PY
 
