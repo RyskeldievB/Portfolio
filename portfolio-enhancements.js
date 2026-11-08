@@ -6,7 +6,11 @@
   .impact-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.impact{padding:14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.025)}.impact strong{display:block;font-size:18px}.impact span{color:var(--muted);font-size:12px}
   @media(max-width:900px){.solve-grid{grid-template-columns:repeat(2,1fr)}.case-wrap{grid-template-columns:1fr}}@media(max-width:640px){.solve-grid,.impact-row{grid-template-columns:1fr}.mock-body{grid-template-columns:1fr}.mock-side{display:none}}
   `;
-  const style=document.createElement('style');style.textContent=css;document.head.appendChild(style);
+  const style=document.createElement('style');
+  // Keep decorative mockup rules inside the dynamically inserted case study.
+  // The static localized case study uses the same class names for real text.
+  style.textContent=css.replace(/\.case-step/g,'.case-wrap .case-step').replace(/\.mock-/g,'.case-wrap .mock-');
+  document.head.appendChild(style);
 
   const skills=document.getElementById('skills');
   if(skills && !document.getElementById('solutions')){
